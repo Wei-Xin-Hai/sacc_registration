@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     SACC 科技创新大赛 · 报名页面
+     作者：海
+     说明：比赛信息展示 + 在线报名表单（含校验与提交反馈）
+     结构：
+       1. header    —— 顶部蓝色横幅（比赛名称 + 主办方）
+       2. .info-card —— 比赛信息展示区
+       3. .notice    —— 报名截止提醒横幅
+       4. form       —— 报名表单区
+     ============================================================ -->
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- 响应式关键：让页面宽度跟随设备宽度，初始缩放为 1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SACC 科技创新大赛 - 在线报名</title>
+  <!-- 引入自定义样式表 -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ========== 顶部横幅：比赛名称与主办方 ========== -->
+  <header class="banner">
+    <h1 class="banner-title">SACC 科技创新大赛</h1>
+    <p class="banner-sub">南京邮电大学计算机科学技术协会</p>
+  </header>
+
+  <!-- 页面主体：居中容器，最大宽度 600px，手机上自动撑满 -->
+  <main class="container">
+
+    <!-- ========== 1. 比赛信息展示区 ========== -->
+    <section class="card info-card">
+      <h2 class="card-title">比赛信息</h2>
+
+      <!-- 两列信息表格：左边时间地点，右边主办单位等 -->
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">比赛名称</span>
+          <span class="info-value">SACC 科技创新大赛</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">主办单位</span>
+          <span class="info-value">计算机科学技术协会</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">比赛时间</span>
+          <span class="info-value">2026 年 3 月 15 日</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">比赛地点</span>
+          <span class="info-value">南京仙林校区 计算机学科楼</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">报名截止</span>
+          <span class="info-value">2026 年 3 月 10 日 23:59</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">面向对象</span>
+          <span class="info-value">南京邮电大学全体在校学生</span>
+        </div>
+      </div>
+
+      <!-- 比赛简介（2~3 句话） -->
+      <p class="info-desc">
+        本次大赛旨在激发同学们的创新思维和实践能力，设"创新设计""算法竞赛""创业实践"三类赛道，
+        参赛者可以个人或组队（不超过 3 人）形式报名。获奖队伍可获得校级认证证书及其它奖品，
+        优秀项目有机会获得学院孵化支持。
+      </p>
+    </section>
+
+    <!-- ========== 报名截止提醒横幅 ========== -->
+    <div class="notice" id="notice">
+      距离报名截止还有 <strong>3</strong> 天，请尽快提交报名！
+    </div>
+
+    <!-- ========== 2. 报名表单区 ========== -->
+    <section class="card form-card">
+      <h2 class="card-title">在线报名</h2>
+
+      <!-- novalidate：关闭浏览器默认校验气泡，统一用 JS 自定义提示 -->
+      <form id="signup-form" novalidate>
+
+        <!-- 姓名 / 学号（一行两列，手机上自动变单列） -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">姓名 <span class="required">*</span></label>
+            <!-- 文本输入：姓名 -->
+            <input type="text" id="name" name="name" placeholder="请输入你的真实姓名">
+            <!-- 错误提示占位符，由 JS 填充 -->
+            <p class="error-msg" data-error-for="name"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="studentId">学号 <span class="required">*</span></label>
+            <!-- 文本输入：学号（南邮规则：字母B + 8位数字） -->
+            <!-- 注意：id 必须与 script.js 中 validators 的键名 studentId 一致 -->
+            <input type="text" id="studentId" name="studentId" placeholder="如 B220230101">
+            <p class="error-msg" data-error-for="studentId"></p>
+          </div>
+        </div>
+
+        <!-- 手机号 / 邮箱 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">手机号 <span class="required">*</span></label>
+            <!-- tel 类型：手机上会弹出数字键盘 -->
+            <input type="tel" id="phone" name="phone" maxlength="11" placeholder="请输入 11 位手机号">
+            <p class="error-msg" data-error-for="phone"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="email">邮箱 <span class="required">*</span></label>
+            <input type="email" id="email" name="email" placeholder="example@njupt.edu.cn">
+            <p class="error-msg" data-error-for="email"></p>
+          </div>
+        </div>
+
+        <!-- 学院/专业 / 参赛类别 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="college">学院 / 专业 <span class="required">*</span></label>
+            <!-- 文本输入：学院与专业 -->
+            <input type="text" id="college" name="college" placeholder="如：计算机学院 计算机科学与技术">
+            <p class="error-msg" data-error-for="college"></p>
+          </div>
+
+          <div class="form-group">
+            <label for="category">参赛类别 <span class="required">*</span></label>
+            <!-- 下拉选择：至少 3 个赛道 -->
+            <select id="category" name="category">
+              <option value="" selected>请选择参赛类别</option>
+              <option value="design">创新设计类</option>
+              <option value="algorithm">算法竞赛类</option>
+              <option value="startup">创业实践类</option>
+            </select>
+            <p class="error-msg" data-error-for="category"></p>
+          </div>
+        </div>
+
+        <!-- 是否服从调剂（单选框） -->
+        <div class="form-group">
+          <label>是否服从调剂 <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="adjust" value="yes" checked> 是
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="adjust" value="no"> 否
+            </label>
+          </div>
+        </div>
+
+        <!-- 个人简介 / 参赛宣言（多行文本框，选填） -->
+        <div class="form-group">
+          <label for="intro">个人简介 / 参赛宣言</label>
+          <textarea id="intro" name="intro" rows="4" maxlength="200"
+            placeholder="请简单介绍一下你自己，或者写下你的参赛宣言（选填）"></textarea>
+          <p class="hint">不超过 200 字</p>
+        </div>
+
+        <!-- 提交按钮 -->
+        <button type="submit" class="submit-btn">提交报名</button>
+      </form>
+    </section>
+
+    <!-- 页脚版权 -->
+    <footer class="footer">
+      © 2026 南京邮电大学计算机科学技术协会 · SACC
+    </footer>
+  </main>
+
+  <!-- 引入表单校验脚本 -->
+  <script src="script.js"></script>
+</body>
+
+</html>
