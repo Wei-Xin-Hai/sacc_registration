@@ -1,0 +1,350 @@
+/* ============================================================
+   SACC 科技创新大赛 · 报名页面样式
+   布局思路：
+     - 整体采用居中卡片式布局（信息卡片 + 表单卡片）
+     - 使用 flex + grid 实现响应式，窄屏自动变单列
+     - 主色：科技蓝 #1667d9，浅灰背景 #eef1f5
+   ============================================================ */
+
+/* ---------- 全局重置与基础变量 ---------- */
+:root {
+  --primary: #1667d9;        /* 主题蓝 */
+  --primary-dark: #0f4fae;   /* 深蓝（悬停态） */
+  --bg: #eef1f5;             /* 页面背景浅灰 */
+  --text: #333;              /* 正文颜色 */
+  --text-light: #888;        /* 次要文字 */
+  --error: #e5484d;          /* 错误提示红 */
+  --radius: 12px;            /* 卡片圆角 */
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.06); /* 卡片阴影 */
+}
+
+/* 清除浏览器默认边距，统一盒模型 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ---------- 顶部蓝色横幅 ---------- */
+.banner {
+  background: linear-gradient(180deg, #1a6fe0, #1667d9);
+  color: #fff;
+  text-align: center;
+  padding: 36px 16px 56px; /* 底部留大间距，让卡片叠上来 */
+}
+
+.banner-title {
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+.banner-sub {
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* ---------- 主体容器：居中 + 限宽 ---------- */
+.container {
+  max-width: 600px;
+  margin: -32px auto 0; /* 负 margin 让卡片叠在横幅上，形成层叠效果 */
+  padding: 0 16px 40px;
+}
+
+/* ---------- 通用卡片样式 ---------- */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-size: 18px;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+/* ---------- 比赛信息展示区 ---------- */
+/* 两列网格：每项由「灰色标签 + 黑色内容」组成 */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 手机/窄屏也保持两列，内容简短不会溢出 */
+  gap: 12px 16px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.info-label {
+  color: var(--text-light);
+  margin-bottom: 2px;
+}
+
+.info-value {
+  color: var(--text);
+  word-break: break-all; /* 长文本自动换行，避免溢出 */
+}
+
+.info-desc {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #555;
+  border-top: 1px dashed #e3e6ea; /* 与上方信息分隔 */
+  padding-top: 12px;
+}
+
+/* ---------- 报名截止提醒横幅 ---------- */
+.notice {
+  background: #fdf6e3;         /* 淡黄底 */
+  border: 1px solid #f5e1a4;
+  border-radius: var(--radius);
+  color: #b8860b;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+}
+
+.notice strong {
+  color: #e07b00;
+  font-size: 16px;
+}
+
+/* ---------- 表单样式 ---------- */
+/* 两列行：桌面并排，窄屏自动换行为单列 */
+.form-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap; /* 关键：空间不足时换行，避免挤压重叠 */
+}
+
+.form-row .form-group {
+  flex: 1 1 220px; /* 每列最小 220px，小屏自动独占一行 */
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group > label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* 必填星号：红色 */
+.required {
+  color: var(--error);
+}
+
+/* 输入框 / 下拉框 / 文本域统一外观 */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;               /* 撑满父容器，不溢出 */
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #d5dae1;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* 聚焦高亮 */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(22, 103, 217, 0.12);
+}
+
+/* 校验失败时的红色边框（由 JS 添加 .invalid 类） */
+.invalid {
+  border-color: var(--error) !important;
+}
+
+/* 校验通过时的绿色边框 */
+.valid {
+  border-color: #34a853;
+}
+
+/* 错误提示文字 */
+.error-msg {
+  color: var(--error);
+  font-size: 12px;
+  margin-top: 4px;
+  min-height: 16px; /* 预留高度，避免出现提示时布局跳动 */
+}
+
+/* 辅助说明文字（如字数限制） */
+.hint {
+  color: var(--text-light);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* 单选框组：横向排列 */
+.radio-group {
+  display: flex;
+  gap: 24px;
+  padding-top: 2px;
+}
+
+.radio-label {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical; /* 只允许纵向拉伸，避免破坏布局 */
+}
+
+/* ---------- 提交按钮 ---------- */
+.submit-btn {
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background: var(--primary-dark);
+}
+
+.submit-btn:active {
+  transform: scale(0.99); /* 轻微按压反馈 */
+}
+
+/* ---------- 成功提示弹窗（遮罩 + 弹窗） ---------- */
+.modal-mask {
+  position: fixed;
+  inset: 0; /* 铺满全屏 */
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeIn 0.25s ease;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 14px;
+  padding: 32px 28px;
+  width: min(85vw, 340px); /* 手机上不超过 85% 宽度 */
+  text-align: center;
+  animation: popIn 0.25s ease;
+}
+
+.modal-icon {
+  width: 56px;
+  height: 56px;
+  line-height: 56px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #e8f5ec;
+  color: #34a853;
+  font-size: 28px;
+}
+
+.modal h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.modal p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+  word-break: break-all;
+}
+
+.modal button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 36px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 弹窗动画：淡入 + 轻微放大 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- 页脚 ---------- */
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #9aa3ad;
+  padding: 8px 0 20px;
+}
+
+/* ============================================================
+   响应式适配：手机（宽度 ≤ 480px）
+   ------------------------------------------------------------
+   - 横幅标题缩小
+   - 信息网格保持两列但间距缩小
+   - 表单两列布局换行为单列（由 flex-wrap 自动完成）
+   - 保证字号 ≥ 14px，避免手机上字体过小
+   ============================================================ */
+@media (max-width: 480px) {
+  .banner {
+    padding: 28px 16px 48px;
+  }
+
+  .banner-title {
+    font-size: 22px;
+  }
+
+  .card {
+    padding: 18px 16px; /* 手机上减小内边距，留出更多内容空间 */
+  }
+
+  .info-grid {
+    gap: 10px 12px;
+  }
+
+  /* 单列布局 */
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* 手机上禁用 textarea 拉伸，防止误操作破坏布局 */
+  textarea {
+    resize: none;
+  }
+}
