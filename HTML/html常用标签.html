@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习笔记</title>
+</head>
+<body>
+    <!--div标签是一个块级元素，常用于布局和分组内容-->
+    <div class="header">页面头部</div>
+    <div class="content">页面内容
+
+
+
+        <b>加粗</b>          <!-- 或 <strong> -->
+        <i>斜体</i>          <!-- 或 <em> -->
+        <u>下划线</u>
+        <s>删除线</s>        <!-- 或 <del> -->
+        H<sub>2</sub>O       <!-- 下标 -->
+        x<sup>2</sup>        <!-- 上标 -->
+
+
+
+    </div>
+
+
+    <!--span标签是一个行内元素，常用于标记文本的一部分-->
+    <span style="color:red">红色文字</span>
+
+
+
+    <!--特殊字符-->
+    &lt; &gt; &amp; &quot; &apos;
+
+
+
+    <!--超链接--><!--‘锚链接’类似-->
+    <a href="https://www.baidu.com" target="_blank">点我去百度</a>
+
+
+
+    <!--图片--><!--注意相对路径，绝对路径-->
+    <img src="images/photo.jpg" alt="一张照片" width="300">
+
+
+
+    <!--列表-->
+    <!--无序列表-->
+    <ul>
+    <li>苹果</li>
+    <li>香蕉</li>
+    <li>橘子</li>
+    </ul>
+
+    <!--有序列表-->
+    <ol>
+        <li>第一步</li>
+        <li>第二步</li>
+        <li>第三步</li>
+    </ol>
+
+    <!--定义列表（常用于底部导航、术语解释）-->
+    <dl>
+        <dt>购物指南</dt>
+        <dd><a href="#">购物流程</a></dd>
+        <dd><a href="#">会员介绍</a></dd>
+    </dl>
+
+
+
+    <!--表格-->
+    <table border="1">
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>城市</th>
+        </tr>
+        <tr>
+            <td>张三</td>
+            <td>20</td>
+            <td>南京</td>
+        </tr>
+        <tr>
+            <td>李四</td>
+            <td>21</td>
+            <td>上海</td>
+        </tr>
+    </table>
+
+
+    <!--表单-->
+    <!-- action: 表单提交的服务器地址, method: HTTP请求方式(post/get) -->
+    <form action="/submit" method="post">
+        <!-- 文本输入框: label的for属性关联input的id, 点击label自动聚焦input -->
+        <label for="name">姓名：</label>
+        <input type="text" id="name" placeholder="请输入姓名"><br>
+        <!-- 密码输入框: type="password" 会隐藏输入内容 -->
+        <label for="pwd">密码：</label>
+        <input type="password" id="pwd"><br>
+        性别：
+        <!-- 单选框: 相同name属性互斥, 只能选中一个 -->
+        <input type="radio" name="gender" value="male" id="male">
+        <label for="male">男</label>
+        <input type="radio" name="gender" value="female" id="female">
+        <label for="female">女</label><br>
+        爱好：
+        <!-- 复选框: 相同name属性归为一组, 可多选 -->
+        <input type="checkbox" name="hobby" value="eat" id="eat">
+        <label for="eat">吃饭</label>
+        <input type="checkbox" name="hobby" value="sleep" id="sleep">
+        <label for="sleep">睡觉</label><br>
+        <!-- 提交按钮: 将表单数据发送到action指定的地址 -->
+        <input type="submit" value="提交">
+        <!-- 重置按钮: 清空所有输入, 恢复默认值 -->
+        <input type="reset" value="重置">
+        <select>
+            <option>选项一</option>
+            <option selected>选项二（默认选中）</option>
+        </select>
+        <textarea rows="4" cols="30">请输入多行文字...</textarea>
+    </form>
+</body>
+</html>
